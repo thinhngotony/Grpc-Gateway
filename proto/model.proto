@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "proto/protogen"; // Output of .go files
+
+message Interface{
+    optional string StrVal = 1[json_name = "data"];
+    optional int32 Int32Val = 2 [json_name = "data"];
+    optional bytes RawVal = 3 ;
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "proto/protogen"; // Output of .go files
+
+import "google/api/annotations.proto";
+import "model.proto";
+
+service YourService {
+    rpc Sample(Interface) returns (Interface){
+        option (google.api.http) = {
+            get: "/hello"
+        };
+    }
+}
