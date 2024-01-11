@@ -2,6 +2,7 @@
 
 # protoc --go_out=plugins=grpc:. -I proto/ proto/*.proto --grpc-gateway_out=logtostderr=true:.
 install:
+# Make latest gRPC code
 	protoc --proto_path=proto proto/*.proto --go_out=plugins=grpc:.
 	protoc --proto_path=proto proto/*.proto --grpc-gateway_out=logtostderr=true:.
 
@@ -11,10 +12,10 @@ clean:
 swagger:
 	protoc --proto_path=proto proto/*.proto --swagger_out=proto/swagger
 
-run:
-	go run main.go
+build:
+	sh build.sh
 
-auto:
-	make clean && make install && make run
+run:
+	make clean && make install && make build && ./grpc-gateway-server
 
 # --swagger_out=logtostderr=true:${OUT_PATH}

@@ -7,12 +7,11 @@ import (
 	"net"
 	"net/http"
 
-	log "github.com/sirupsen/logrus"
-
 	"main/proto"
 	"main/proto/protogen"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -50,7 +49,7 @@ func RunProxy() error {
 		return err
 	}
 
-	log.Infof("Proxy Server is running at port %v...", PROXY_PORT)
+	logrus.Infof("Proxy Server is running at port %v...", PROXY_PORT)
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	return http.ListenAndServe(fmt.Sprintf(":%v", PROXY_PORT), mux)
@@ -59,13 +58,13 @@ func RunProxy() error {
 func RunGrpc() error {
 	lis, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%v", GRPC_PORT))
 	if err != nil {
-		log.Errorf("err while create listen %v", err)
+		logrus.Errorf("err while create listen %v", err)
 		return err
 	}
 
 	s := grpc.NewServer()
 	protogen.RegisterYourServiceServer(s, proto.YourServiceServer{}) // 2. Replace here when make new protobuf file
 
-	log.Infof("gRPC Gateway is running at port %v...", GRPC_PORT)
+	logrus.Infof("gRPC Gateway is running at port %v...", GRPC_PORT)
 	return s.Serve(lis)
 }

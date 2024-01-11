@@ -2,10 +2,24 @@ syntax = "proto3";
 
 package proto;
 
+import "google/protobuf/any.proto";
+
 option go_package = "proto/protogen"; // Output of .go files
 
 message Interface{
-    optional string StrVal = 1[json_name = "data"];
-    optional int32 Int32Val = 2 [json_name = "data"];
-    optional bytes RawVal = 3 ;
+    // You can keep other oneof options if needed or you can use 'optional' instead
+    oneof data {
+        string StrVal = 1 [json_name = "data"];
+        int32 int32_val = 2 [json_name = "data"];
+        bytes raw_val = 3 [json_name = "data"];
+        google.protobuf.Any any_val = 4 [json_name = "data"];
+    }
+}
+
+message BuildInfo {
+	optional string ApiVersion = 1 [json_name = "api_version"];
+	optional string Commit = 2 [json_name = "commit"];
+	optional string BuildDate = 3 [json_name = "build_date"];
+	optional string GoVersion = 4 [json_name = "go_version"];
+	optional string OsArch = 5 [json_name = "os_arch"];
 }

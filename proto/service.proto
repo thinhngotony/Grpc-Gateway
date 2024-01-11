@@ -13,4 +13,9 @@ service YourService {
             get: "/hello"
         };
     }
+    rpc GetVersion(Interface) returns (Interface){
+        option (google.api.http) = {
+            get: "/v1/version"
+        };
+    }
 }

@@ -1,3 +1,7 @@
-# GET Request to localhost:8888/hello
+# Hello World
 GET http://localhost:8888/hello
+
+# Get Version 
+GET http://localhost:8888/v1/version
+
 

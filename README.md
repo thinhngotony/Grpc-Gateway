@@ -20,7 +20,7 @@ After cloning the repository, you can navigate into the project directory and bu
 
 
 ```
-make auto
+make run
 ```
 
 This will start the server and you can then interact with the gRPC and RESTful APIs.
